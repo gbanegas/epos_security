@@ -1,0 +1,37 @@
+##################################################
+# IP Sources
+##################################################
+COREGEN_SRCS = $(abspath $(addprefix $(BASE_DIR)/src/mach/common/coregen/, \
+clk_xlnx_100M_diff.xco \
+clk_xlnx_125M_diff.xco \
+ram_xlnx_256k.xco \
+ram_amba_128k.xco))
+
+#####################
+# Compile the cores
+#####################
+COREGEN_DIR = $(abspath $(BASE_DIR)/src/mach/common/coregen/)
+
+clk_xlnx_100M_diff: $(COREGEN_DIR)/clk_xlnx_100M_diff.vhd
+$(COREGEN_DIR)/clk_xlnx_100M_diff.vhd: $(COREGEN_DIR)/clk_xlnx_100M_diff.xco
+	cd $(COREGEN_DIR); \
+	coregen -b clk_xlnx_100M_diff.xco \
+	-p coregen.cgp
+
+clk_xlnx_125M_diff: $(COREGEN_DIR)/clk_xlnx_125M_diff.vhd
+$(COREGEN_DIR)/clk_xlnx_125M_diff.vhd: $(COREGEN_DIR)/clk_xlnx_125M_diff.xco
+	cd $(COREGEN_DIR); \
+	coregen -b clk_xlnx_125M_diff.xco \
+	-p coregen.cgp
+
+ram_xlnx_256k: $(COREGEN_DIR)/ram_xlnx_256k.vhd
+$(COREGEN_DIR)/ram_xlnx_256k.vhd: $(COREGEN_DIR)/ram_xlnx_256k.xco
+	cd $(COREGEN_DIR); \
+	coregen -b ram_xlnx_256k.xco \
+	-p coregen.cgp
+
+ram_amba_128k: $(COREGEN_DIR)/ram_amba_128k.vhd
+$(COREGEN_DIR)/ram_amba_128k.vhd: $(COREGEN_DIR)/ram_amba_128k.xco
+	cd $(COREGEN_DIR); \
+	coregen -b ram_amba_128k.xco \
+	-p coregen.cgp
