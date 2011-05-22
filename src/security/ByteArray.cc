@@ -2,7 +2,7 @@
 
 ByteArray::ByteArray()
 {
-    this->m_data = NULL;
+    this->m_data = 0;
     this->length = 0;
 }
 

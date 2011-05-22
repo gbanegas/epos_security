@@ -8,7 +8,7 @@
 
 include	../makedefs
 
-SUBDIRS := utility arch mach abstraction setup boot system init
+SUBDIRS := utility arch mach abstraction setup boot system init security
 
 all:		$(SUBDIRS)
 
