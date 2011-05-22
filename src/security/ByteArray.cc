@@ -28,17 +28,17 @@ ByteArray::ByteArray(const unsigned char* data, unsigned int length)
 }
 
 
-ByteArray::ByteArray(string data)
+/*ByteArray::ByteArray(string data)
 {
-	this->length = data.size();
+    this->length = data.size();
     this->m_data = new unsigned char[this->length + 1]; 
     memcpy(this->m_data, data.c_str(), length);
     this->m_data[this->length] = '\0';
-}
+}*/
 
 ByteArray::ByteArray(char *data)
 {
-    this->length = strlen(data);
+    this->length = (unsigned int) strlen(data);
     this->m_data = new unsigned char[this->length + 1]; 
     memcpy(this->m_data, data, length);
     this->m_data[this->length] = '\0';
@@ -47,7 +47,7 @@ ByteArray::ByteArray(char *data)
 ByteArray::ByteArray(int length)
 {
     this->length = (unsigned int)length;
-    this->m_data = new unsigned char[length + 1];
+    this->m_data = new unsigned char[length + 1]();
     
     for(unsigned int i = 0; i <= this->length; i++)
     {
@@ -108,18 +108,18 @@ bool operator !=(const ByteArray& left, const ByteArray& right)
     return (res ? true : false);
 }
 
-unsigned char& ByteArray::operator [](int pos) throw (out_of_range)
+unsigned char& ByteArray::operator [](int pos)
 {
     if(pos < 0 || pos >= (int)this->length)
     {
-        throw out_of_range("");
+      return this->m_data[0];
     }
     return this->m_data[pos];
 }
 
-char ByteArray::at(int pos) const throw (out_of_range) {
+char ByteArray::at(int pos) {
     if(pos < 0 || pos >= (int)this->length)     {
-        throw out_of_range("");
+        return 'a';
     }
     return this->m_data[pos];
 }
@@ -178,14 +178,14 @@ unsigned int ByteArray::size() const
 //	return temp;
 //}
 
-std::string ByteArray::toString()
+/*string ByteArray::toString()
 {
 	std::string data;
 	data = (char *)this->m_data;
     return data;
 }
 
-std::string ByteArray::toHex()
+string ByteArray::toHex()
 {
 	//sets the hexadecimal lenght for twice the lenght of the bytearray
 	//because each byte contains 2 hexadecimals characters	
@@ -205,7 +205,7 @@ std::string ByteArray::toHex()
     return data;
 }
 
-std::string ByteArray::toHex(char separator)
+string ByteArray::toHex(char separator)
 {
 	//sets the hexadecimal lenght for twice the lenght of the bytearray
 	//because each byte contains 2 hexadecimals characters	
@@ -223,7 +223,7 @@ std::string ByteArray::toHex(char separator)
 	delete[] hex_data; 
     return data.str();
 }
-
+*/
 void ByteArray::copyFrom(int offset, int length, ByteArray& data, int offset2) 
 {
     for (int top = offset + length; offset < top; offset++, offset2++) {
@@ -246,12 +246,13 @@ ByteArray& operator xor(const ByteArray& left, const ByteArray& right)
     
     ByteArray* xored = new ByteArray(*biggest);
     for (unsigned int i = 0; i < smallest->size(); i++) {
-        (*xored)[i] = (*xored)[i] xor smallest->at(i);
+	char temp =  smallest->at(i);
+        (*xored)[i] = (*xored)[i] xor temp;
     }
     return *xored;
 }
 
-ByteArray ByteArray::xOr(vector<ByteArray> &array) {
+/*ByteArray ByteArray::xOr(vector<ByteArray> &array) {
     ByteArray ba(array.at(0));
     ByteArray temp;
     
@@ -260,4 +261,4 @@ ByteArray ByteArray::xOr(vector<ByteArray> &array) {
         ba = temp;
     }
     return ba;
-}
+}*/

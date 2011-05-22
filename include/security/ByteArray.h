@@ -1,12 +1,9 @@
 #ifndef BYTEARRAY_H_
 #define BYTEARRAY_H_
 
+#include <system/config.h>
 #include <utility/string.h>
-#include <stdexcept>
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <string.h>
+#include <utility/vector.h>
 
 using namespace std;
 
@@ -50,9 +47,10 @@ public:
 	 * 
 	 * @param data dados que serão colocados no objeto
 	 */
-    ByteArray(string data);
+    //ByteArray(string data);
 
-	ByteArray(char *data);
+    
+    ByteArray(char *data);
 	/**
 	 * ByteArray com tamanho definido.
 	 * 
@@ -77,7 +75,7 @@ public:
      * 
      * @param pos Posição desejada.
      */
-    char at(int pos) const throw (out_of_range);
+    char at(int pos);
     
     /**
      * Fazer uma cópia profunda ao invés de copiar a referência
@@ -107,7 +105,7 @@ public:
      * 
      * @param pos Posição desejada.
      */
-    unsigned char& operator [](int pos) throw (out_of_range);
+    unsigned char& operator [](int pos);
 
     /**
      * Fazer ou-exclusivo entre dois ByteArray's.
@@ -134,11 +132,6 @@ public:
      * @param offset2 Offset to consider for copy begin in data.
      */
     void copyFrom(int offset, int length, ByteArray& data, int offset2);
-
-    /**
-     * Returns an istringstream representing current byte array.
-     */
-	std::istringstream * toStream();
 
     /**
      * Set the content of ByteArray to be an already allocated memory space.
@@ -171,22 +164,23 @@ public:
     /**
      * Consider that current byte array is a char array, and retuirns it as a QString.
      */
-    virtual string toString();
+    //virtual string toString();
     
     /**
      * Converts the content of this bytearray to hexadecimal value.
      */    
-    virtual string toHex();
+    //virtual string toHex();
     
     /**
      * Converts the content of this bytearray to hexadecimal value separated using the char informed as argument.
      */    
-    virtual string toHex(char separator);
+    //virtual string toHex(char separator);
     
     /**
      * Computes multiple xor of vector elements.
      */
-    static ByteArray xOr(vector<ByteArray> &array);
+    
+    //static ByteArray xOr(vector<ByteArray> &array);
 
 private:
     unsigned char* m_data;
