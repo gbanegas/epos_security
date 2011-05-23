@@ -113,7 +113,7 @@ public:
      * @param left Primeiro ByteArray da operação.
      * @param right Segundo ByteArray da operação.
      */
-    friend ByteArray& operator xor(const ByteArray& left, const ByteArray& right);
+    friend ByteArray& operator xor( ByteArray& left,  ByteArray& right);
 
     /**
      * Copy bytes from desired memory location.

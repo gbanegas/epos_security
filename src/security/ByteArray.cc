@@ -232,10 +232,10 @@ void ByteArray::copyFrom(int offset, int length, ByteArray& data, int offset2)
 }
 
 
-ByteArray& operator xor(const ByteArray& left, const ByteArray& right)
+ByteArray& operator xor( ByteArray& left,  ByteArray& right)
 {
-    const ByteArray* biggest;
-    const ByteArray* smallest;
+     ByteArray* biggest;
+     ByteArray* smallest;
     if (left.size() > right.size()) {
         biggest = &left;
         smallest = &right;
@@ -246,7 +246,7 @@ ByteArray& operator xor(const ByteArray& left, const ByteArray& right)
     
     ByteArray* xored = new ByteArray(*biggest);
     for (unsigned int i = 0; i < smallest->size(); i++) {
-	char temp =  smallest->at(i);
+	char temp = (char) smallest->at(i);
         (*xored)[i] = (*xored)[i] xor temp;
     }
     return *xored;
