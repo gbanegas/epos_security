@@ -4,6 +4,7 @@
 #include <system/config.h>
 #include <utility/string.h>
 #include <utility/vector.h>
+#include <utility/ostream.h>
 
 using namespace std;
 
@@ -149,12 +150,12 @@ public:
     /**
      * Returns the memory location of byte array content.
      */
-//    char* data();
+    char* data();
 
     /**
      * Returns the byte array content encoded as base 64 characters.
      */
-//    std::string toBase64();
+   //char *data toBase64();
     
     /**
      * Returns the size of current byte array.
@@ -164,17 +165,17 @@ public:
     /**
      * Consider that current byte array is a char array, and retuirns it as a QString.
      */
-    //virtual string toString();
+    virtual char * toString();
     
     /**
      * Converts the content of this bytearray to hexadecimal value.
      */    
-    //virtual string toHex();
+    virtual char * toHex();
     
     /**
      * Converts the content of this bytearray to hexadecimal value separated using the char informed as argument.
      */    
-    //virtual string toHex(char separator);
+   // virtual char * toHex(char separator);
     
     /**
      * Computes multiple xor of vector elements.

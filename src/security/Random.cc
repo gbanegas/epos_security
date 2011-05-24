@@ -30,8 +30,8 @@ ByteArray Random::pseudoBytes(int nbytes)
 	else if (rc == 0)
 	{
 		throw RandomException(RandomException::NO_DATA_SEEDED, "Random::pseudoBytes");
-	}
-	return ret;*/
+	}*/
+	return ret;
 }
 
 void Random::seedData(ByteArray &data)

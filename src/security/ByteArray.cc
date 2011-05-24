@@ -149,10 +149,10 @@ unsigned char* ByteArray::getDataPointer()
     return this->m_data;
 }
 
-//char* ByteArray::data()
-//{
-//    return reinterpret_cast<char*>(this->m_data);
-//}
+char* ByteArray::data()
+{
+    return reinterpret_cast<char*>(this->m_data);
+}
 
 unsigned int ByteArray::size() const
 {
@@ -178,39 +178,33 @@ unsigned int ByteArray::size() const
 //	return temp;
 //}
 
-/*string ByteArray::toString()
+char * ByteArray::toString()
 {
-	std::string data;
-	data = (char *)this->m_data;
-    return data;
+    return (char *)this->m_data;
 }
 
-string ByteArray::toHex()
+char * ByteArray::toHex()
 {
 	//sets the hexadecimal lenght for twice the lenght of the bytearray
 	//because each byte contains 2 hexadecimals characters	
-	//go trought the bytearray m_data, coping each byte to two hex in the hex_data
-	std::string data;	
+	//go trought the bytearray m_data, copying each byte to two hex in the hex_data
     char *hex_data = new char[this->length*2 +1];
     
     int j = 0;
     for(unsigned int i = 0; i < this->length; i++)
     {    	
-		sprintf(&hex_data[j], "%02X", this->m_data[i]);
-		j+=2;		
+	//sprintf(&hex_data[j], "%02X", this->m_data[i]);
+	j+=2;		
     }
     hex_data[j] = '\0';
-	data = hex_data;
-	delete[] hex_data;
-    return data;
+    return hex_data;
 }
 
-string ByteArray::toHex(char separator)
+/*char* ByteArray::toHex(char separator)
 {
 	//sets the hexadecimal lenght for twice the lenght of the bytearray
 	//because each byte contains 2 hexadecimals characters	
 	//go trought the bytearray m_data, coping each byte to two hex in the hex_data
-	std::stringstream data;	
     char* hex_data = new char[2];
     
     for(unsigned int i = 0; i < this->length; i++)
@@ -218,12 +212,11 @@ string ByteArray::toHex(char separator)
 		sprintf(&hex_data[0], "%02X", this->m_data[i]);
 		data << hex_data;
 		if(i < this->length-1)
-			data << separator;
+			hex_data[i+1] << separator;
     }
-	delete[] hex_data; 
-    return data.str();
-}
-*/
+    return hex_data;
+}*/
+
 void ByteArray::copyFrom(int offset, int length, ByteArray& data, int offset2) 
 {
     for (int top = offset + length; offset < top; offset++, offset2++) {
