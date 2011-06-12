@@ -4,9 +4,9 @@
 #include <system/config.h>
 #include <utility/string.h>
 #include <utility/vector.h>
-
+#include "asmController.h"
 #include "ByteArray.h"
-#include "asm_controller.h"
+
 
 //using namespace std;
 class AESController {
@@ -26,7 +26,7 @@ public:
     char* decipher();
 	
 
-    ByteArray getCipheredData();
+    ByteArray* getCipheredData();
 
     char* toChar();
 
@@ -37,6 +37,7 @@ private:
     ByteArray * data;
     ByteArray * ciphered_data;
     char* key;
+    ASMController * controller;
 
 
 
