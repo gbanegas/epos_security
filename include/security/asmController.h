@@ -35,10 +35,13 @@ public:
     
 
 private:
+    void initialize();
     ByteArray* data;
     ByteArray* ciphered_data;
     char* key;
     static ASMController* instance;
+
+    
 
 
 

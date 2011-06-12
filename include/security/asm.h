@@ -2,7 +2,6 @@
 #ifndef ASM_H
 #define ASM_H
 
-__BEGIN_SYS
 
 #define ASMADDR ((struct ASM_struct *)0x80008000)
 typedef unsigned int u32;
@@ -70,5 +69,4 @@ typedef unsigned int u32;
 static volatile struct ASM_struct * const ASM_BITS = ASMADDR;
 //static volatile struct ASM_struct * const ASM =  (0x80008000);
 
-__END_SYS
 #endif
