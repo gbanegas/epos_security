@@ -15,8 +15,6 @@ using namespace std;
 /**
  * @brief Classe usada para transportar dados binários pelo sistema. Pode ser usada para conversão de 
  * texto em array de bytes e vice-versa.
- * Usar esta classe ao invés do QByteArray por causa do uso de "unsigned char", e pela possibilidade
- * de fazer "cópias profundas" dos dados.
  */
 class ByteArray
 {
