@@ -40,7 +40,6 @@ private:
     ByteArray* ciphered_data;
     char* key;
     static ASMController* instance;
-    //ASMBits * bits;
 
     
 

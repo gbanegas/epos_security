@@ -1,4 +1,5 @@
 #include <security/ByteArray.h>
+#include <utility/ostream.h>
 
 ByteArray::ByteArray()
 {
@@ -188,6 +189,7 @@ char * ByteArray::toHex()
 	//sets the hexadecimal lenght for twice the lenght of the bytearray
 	//because each byte contains 2 hexadecimals characters	
 	//go trought the bytearray m_data, copying each byte to two hex in the hex_data
+    
     char *hex_data = new char[this->length*2 +1];
     
     int j = 0;

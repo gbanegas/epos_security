@@ -4,10 +4,11 @@
 #include <system/config.h>
 #include <utility/string.h>
 #include <utility/vector.h>
+#include <semaphore.h>
 #include "asmController.h"
 #include "ByteArray.h"
 
-
+__USING_SYS
 //using namespace std;
 class AESController {
 
@@ -19,7 +20,7 @@ public:
     void setKey(ByteArray key);
     void setKey(const unsigned char* key);
 
-    void setData(ByteArray &data);
+    void setData(ByteArray * data);
 
     char* cipher();
 
@@ -28,9 +29,9 @@ public:
 
     ByteArray* getCipheredData();
 
-    char* toChar();
+    //char* toChar();
 
-    char* toHex();
+    //char* toHex();
     
 
 private:
@@ -38,7 +39,7 @@ private:
     ByteArray * ciphered_data;
     char* key;
     ASMController * controller;
-
+    Semaphore * buff;
 
 
 };
