@@ -2,8 +2,6 @@
 #ifndef ASMBITS_H
 #define ASMBITS_H
 
-
-//#define ASMADDR ((struct ASM_struct *)0x80008000)
 #define ASMADDR ((struct ASM_struct *)0x80008000)
 
 typedef unsigned int u32;

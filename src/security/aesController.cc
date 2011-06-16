@@ -45,17 +45,27 @@ char* AESController::cipher()
 {
 	
 	this->buff->p();
-	
 
-	//TODO terminar de fazer o metodo
+        this->controller->initialize();
+
+        this->controller->setKey(this->key);
+
+        this->controller->setCRTMode();
+
+        this->controller->setData(this->data);
+
+        this->controller->cipher();
+	
+        this->ciphered_data = this->controller->getCipheredData();
+
 	this->buff->v();	
+
 	return this->ciphered_data->toString();
 
 }
 
 char* AESController::decipher()
 {
-
 	return this->cipher();
 }
 

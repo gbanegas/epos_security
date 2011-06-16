@@ -23,28 +23,27 @@ public:
     void setKey(ByteArray key);
     void setKey(const unsigned char* key);
 
-    void setData(ByteArray &data);
+    void setData(ByteArray *data);
+    void setData(const unsigned char* key);
 
-    ByteArray& doFinal();
-	
+    void setCRTMode();
 
-    ByteArray getCipheredData();
+    void cipher();
+
+    ByteArray* getCipheredData();
     char* toChar();
 
     char* toHex();
-    
+
+     void initialize();
 
 private:
-    void initialize();
+   
     ByteArray* data;
     ByteArray* ciphered_data;
     char* key;
     static ASMController* instance;
-
-    
-
-
-
+    typedef unsigned int uint32_t;
 };
 
 #endif
