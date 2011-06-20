@@ -42,8 +42,13 @@ void testCipher()
    AESController controller;
    controller.setKey("0x12345678");
    controller.setData("teste de cifragem.");
-   
-   cout << controller.cipher();   
+   char * test = new char[128];
+   test = controller.cipher();
+   cout << test << "\n";
+   controller.setData(test);
+   test = controller.cipher();
+   cout << test << "\n";
+   delete[] test;
 }
 
 

@@ -27,7 +27,6 @@ typedef unsigned int u32;
         	 u32 CBC3_RESULT;
 
 
-			u32 CONTROL0;
                          struct ASM_CONTROL0 {
         	          u32 :24;
         	          u32 START:1;
@@ -35,11 +34,10 @@ typedef unsigned int u32;
 	             	  u32 LOAD_MAC:1;
 	             	  u32 :4;
 	             	  u32 CLEAR_IRQ:1;
-	         	} CONTROL0bits;
+	         	} CONTROL0;
 
 
 
-	        	u32 CONTROL1;
 	        	struct ASM_CONTROL1 {
 	        	     u32 ON:1;
 	        	     u32 NORMAL_MODE:1;
@@ -50,16 +48,15 @@ typedef unsigned int u32;
 	        	     u32 SELF_TEST:1;
 	        	     u32 :4;
 	        	     u32 MASK_IRQ:1;
-	        	 } CONTROL1bits;
+	        	 } CONTROL1;
 
 
-	         	u32 STATUS;
 	         	struct ASM_STATUS {
 	        	     u32 :24;
 	        	     u32 DONE:1;
 	         	     u32 TEST_PASS:1;
 	         	     u32 :6;
-	         	} STATUSbits;
+	         	} STATUS;
 
  
 	         u32 reserved;

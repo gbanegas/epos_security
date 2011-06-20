@@ -23,16 +23,17 @@ ASMController* ASMController::getInstance()
 void ASMController::initialize()
 {
 	OStream cout;
-        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUSbits.TEST_PASS << "\n";
-	ASM_BITS->CONTROL1bits.ON = 1;
-	ASM_BITS->CONTROL1bits.SELF_TEST = 1;
-	ASM_BITS->CONTROL0bits.START = 1;
+        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
+	cout << "ASM Bits " << (unsigned int) ASM_BITS << "\n";
+	ASM_BITS->CONTROL1.ON = 1;
+	ASM_BITS->CONTROL1.SELF_TEST = 1;
+	ASM_BITS->CONTROL0.START = 1;
 
 	for(unsigned int i = 0; i < 3330; i++) { continue; }
-        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUSbits.TEST_PASS << "\n";
+        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
 
-	ASM_BITS->CONTROL1bits.SELF_TEST = 0;
-	ASM_BITS->CONTROL1bits.NORMAL_MODE = 1;
+	ASM_BITS->CONTROL1.SELF_TEST = 0;
+	ASM_BITS->CONTROL1.NORMAL_MODE = 1;
         cout <<"estou saindo " << "\n";
 }
 
@@ -63,15 +64,15 @@ void ASMController::setData( char* key)
 
 void ASMController::setCRTMode()
 {
-    ASM_BITS->CONTROL1bits.CTR = 1;
+    ASM_BITS->CONTROL1.CTR = 1;
 }
 
 void ASMController::cipher() {
-    ASM_BITS->CONTROL0bits.START = 1;
+    ASM_BITS->CONTROL0.START = 1;
     OStream cout;
-    cout << "Passei pelo cipher() DONE = " << ASM_BITS->STATUSbits.DONE << "\n";
-    while(ASM_BITS->STATUSbits.DONE == 0) { continue; }
-    cout << "saindo do cipher() DONE = " << ASM_BITS->STATUSbits.DONE << "\n";
+    cout << "Passei pelo cipher() DONE = " << ASM_BITS->STATUS.DONE << "\n";
+    while(ASM_BITS->STATUS.DONE == 0) { continue; }
+    cout << "saindo do cipher() DONE = " << ASM_BITS->STATUS.DONE << "\n";
 }
 
 char* ASMController::getCipheredData() {
