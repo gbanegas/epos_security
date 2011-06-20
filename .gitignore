@@ -1,0 +1,13 @@
+*.o
+*.s
+*.a
+
+app/mc13224v_app
+bin/
+etc/eposcc.conf
+etc/eposmkbi.conf
+img/mc13224v_app
+img/mc13224v_app.img
+tools/eposldr/eposldr
+tools/eposmkbi/eposmkbi
+
