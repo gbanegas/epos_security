@@ -23,13 +23,13 @@ ASMController* ASMController::getInstance()
 void ASMController::initialize()
 {
 	OStream cout;
+        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUSbits.TEST_PASS << "\n";
 	ASM_BITS->CONTROL1bits.ON = 1;
 	ASM_BITS->CONTROL1bits.SELF_TEST = 1;
 	ASM_BITS->CONTROL0bits.START = 1;
 
-	
-	cout << "Passei pelo Initialize()" << "\n";
 	for(unsigned int i = 0; i < 3330; i++) { continue; }
+        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUSbits.TEST_PASS << "\n";
 
 	ASM_BITS->CONTROL1bits.SELF_TEST = 0;
 	ASM_BITS->CONTROL1bits.NORMAL_MODE = 1;
