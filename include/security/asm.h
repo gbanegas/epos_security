@@ -1,7 +1,5 @@
 
-#ifndef ASMBITS_H
-#define ASMBITS_H
-
+__BEGIN_SYS
 #define ASMADDR ((struct ASM_struct *)0x80008000)
 
 typedef unsigned int u32;
@@ -28,7 +26,7 @@ typedef unsigned int u32;
         	 u32 CBC2_RESULT;
         	 u32 CBC3_RESULT;
         	 u32 CONTROL0;
-        	 struct ASM_CONTROL0 {
+        	 union ASM_CONTROL0 {
         	     u32 :24;
         	     u32 START:1;
         	     u32 CLEAR:1;
@@ -38,7 +36,7 @@ typedef unsigned int u32;
 	         } CONTROL0bits;
 	
 	        u32 CONTROL1;
-	        struct ASM_CONTROL1 {
+	        union ASM_CONTROL1 {
 	             u32 ON:1;
 	             u32 NORMAL_MODE:1;
 	             u32 BYPASS:1;
@@ -50,7 +48,7 @@ typedef unsigned int u32;
 	             u32 MASK_IRQ:1;
 	         } CONTROL1bits;
 	         u32 STATUS;
-	         struct ASM_STATUS {
+	         union ASM_STATUS {
 	             u32 :24;
 	             u32 DONE:1;
 	             u32 TEST_PASS:1;
@@ -66,7 +64,4 @@ typedef unsigned int u32;
 		};
 
 static volatile struct ASM_struct * const ASM_BITS = ASMADDR;
-//static volatile struct ASM_struct * const ASM =  (0x80008000);
-
-
-#endif
+__END_SYS

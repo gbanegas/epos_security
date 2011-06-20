@@ -17,7 +17,7 @@ template <class Imp>
 struct Traits
 {
     static const bool enabled = true;
-    static const bool debugged = true;
+    static const bool debugged = false;
     static const bool power_management = false;
 };
 

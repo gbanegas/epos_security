@@ -2,45 +2,34 @@
 #define AESCONTROLLER_H_
 
 #include <system/config.h>
-#include <utility/string.h>
-#include <utility/vector.h>
 #include <semaphore.h>
 #include "asmController.h"
-#include "ByteArray.h"
 
-__USING_SYS
-//using namespace std;
+__BEGIN_SYS
 class AESController {
 
 	
 public:
     AESController();
-    virtual ~AESController();
+    //virtual ~AESController();
 
-    void setKey(ByteArray key);
-    void setKey(const unsigned char* key);
+    void setKey(char* key);
 
-    void setData(ByteArray * data);
+    void setData(char* data);
 
     char* cipher();
 
     char* decipher();
 	
+    char* getCipheredData();
 
-    ByteArray* getCipheredData();
-
-    //char* toChar();
-
-    //char* toHex();
-    
 
 private:
-    ByteArray * data;
-    ByteArray * ciphered_data;
+    char * data;
+    char * ciphered_data;
     char* key;
     ASMController * controller;
     Semaphore * buff;
-
-
 };
+__END_SYS
 #endif

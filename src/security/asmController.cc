@@ -1,5 +1,6 @@
 #include <security/asmController.h>
 
+__BEGIN_SYS
 ASMController* ASMController::instance = 0;
 
 ASMController::ASMController()
@@ -9,13 +10,6 @@ ASMController::ASMController()
 	this->data = 0;
 	this->ciphered_data = 0;
 	initialize();
-}
-
-ASMController::~ASMController()
-{
-	delete[] this->key;
-	delete[] this->data;
-	delete[] this->ciphered_data;
 }
 
 ASMController* ASMController::getInstance()
@@ -28,26 +22,34 @@ ASMController* ASMController::getInstance()
 
 void ASMController::initialize()
 {
+	OStream cout;
 	ASM_BITS->CONTROL1bits.ON = 1;
 	ASM_BITS->CONTROL1bits.SELF_TEST = 1;
 	ASM_BITS->CONTROL0bits.START = 1;
 
+	
+	cout << "Passei pelo Initialize()" << "\n";
 	for(unsigned int i = 0; i < 3330; i++) { continue; }
 
 	ASM_BITS->CONTROL1bits.SELF_TEST = 0;
 	ASM_BITS->CONTROL1bits.NORMAL_MODE = 1;
+        cout <<"estou saindo " << "\n";
 }
 
-void ASMController::setKey(const unsigned char* key)
+void ASMController::setKey(char* key)
 {
+    OStream cout;
+    cout << "Passei pelo Key()" << key << "\n";
     ASM_BITS->KEY0 = *(uint32_t *)key[0];
     ASM_BITS->KEY1 = *(uint32_t *)key[1];
     ASM_BITS->KEY2 = *(uint32_t *)key[2];
     ASM_BITS->KEY3 = *(uint32_t *)key[3];
 }
 
-void ASMController::setData(const unsigned char* key)
+void ASMController::setData( char* key)
 {
+    OStream cout;
+    cout << "Passei pelo Data()" << key << "\n";
     ASM_BITS->CTR0 = *(uint32_t *)key[0];
     ASM_BITS->CTR1 = *(uint32_t *)key[4];
     ASM_BITS->CTR2 = *(uint32_t *)key[8];
@@ -66,10 +68,13 @@ void ASMController::setCRTMode()
 
 void ASMController::cipher() {
     ASM_BITS->CONTROL0bits.START = 1;
+    OStream cout;
+    cout << "Passei pelo cipher() DONE = " << ASM_BITS->STATUSbits.DONE << "\n";
     while(ASM_BITS->STATUSbits.DONE == 0) { continue; }
+    cout << "saindo do cipher() DONE = " << ASM_BITS->STATUSbits.DONE << "\n";
 }
 
-ByteArray* ASMController::getCipheredData() {
+char* ASMController::getCipheredData() {
     this->ciphered_data[0] =  ASM_BITS->CTR0_RESULT       & 0xff;
     this->ciphered_data[1] =  ASM_BITS->CTR0_RESULT >> 8  & 0xff;
     this->ciphered_data[2] =  ASM_BITS->CTR0_RESULT >> 16 & 0xff;
@@ -92,3 +97,4 @@ ByteArray* ASMController::getCipheredData() {
 
     return this->ciphered_data;
 }
+__END_SYS

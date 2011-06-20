@@ -2,35 +2,28 @@
 #define ASMCONTROLLER_H_
 
 #include <system/config.h>
-#include <utility/string.h>
-#include <utility/vector.h>
-
-#include "ByteArray.h"
 #include "asm.h"
-
-//using namespace std;
+__BEGIN_SYS
 class ASMController {
 
 protected:
 
     ASMController();
-    virtual ~ASMController();
+    //virtual ~ASMController();
 	
 public:
     
     static ASMController* getInstance();
 
-    void setKey(ByteArray key);
-    void setKey(const unsigned char* key);
+    void setKey(char* key);
 
-    void setData(ByteArray *data);
-    void setData(const unsigned char* key);
+    void setData(char* key);
 
     void setCRTMode();
 
     void cipher();
 
-    ByteArray* getCipheredData();
+    char* getCipheredData();
     char* toChar();
 
     char* toHex();
@@ -39,11 +32,11 @@ public:
 
 private:
    
-    ByteArray* data;
-    ByteArray* ciphered_data;
+    char* data;
+    char* ciphered_data;
     char* key;
     static ASMController* instance;
     typedef unsigned int uint32_t;
 };
-
+__END_SYS
 #endif
