@@ -12,7 +12,7 @@ __USING_SYS
 
 void wait() {
     for(unsigned int i = 0; i < 0x000fffff; i++);
-    Alarm::delay(2000000);
+    Alarm::delay(1000000);
 }
 
 void turn_on_led1() {
@@ -41,13 +41,12 @@ void testCipher()
    OStream cout;
    AESController controller;
    controller.setKey("0x12345678");
-   controller.setData("teste de cifragem.");
-   char * test = new char[128];
-   test = controller.cipher();
-   cout << test << "\n";
-   controller.setData(test);
-   test = controller.cipher();
-   cout << test << "\n";
+   controller.setData("//////");
+   char * test = controller.cipher();
+   cout << "cifrado: " << test << "\n";
+   //controller.setData(test);
+   //test = controller.cipher();
+   //cout << test << "\n";
    delete[] test;
 }
 

@@ -8,7 +8,7 @@ ASMController::ASMController()
 
 	this->key = 0;
 	this->data = 0;
-	this->ciphered_data = 0;
+	//this->ciphered_data = new char[128];
 	initialize();
 }
 
@@ -24,7 +24,6 @@ void ASMController::initialize()
 {
 	OStream cout;
         cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
-	cout << "ASM Bits " << (unsigned int) ASM_BITS << "\n";
 	ASM_BITS->CONTROL1.ON = 1;
 	ASM_BITS->CONTROL1.SELF_TEST = 1;
 	ASM_BITS->CONTROL0.START = 1;
@@ -34,32 +33,93 @@ void ASMController::initialize()
 
 	ASM_BITS->CONTROL1.SELF_TEST = 0;
 	ASM_BITS->CONTROL1.NORMAL_MODE = 1;
-        cout <<"estou saindo " << "\n";
+        ASM_BITS->CONTROL0.CLEAR = 1;
+	ASM_BITS->CONTROL0.CLEAR_IRQ = 1;
+        cout <<" estou saindo Initialize() " << "\n";
 }
 
 void ASMController::setKey(char* key)
 {
     OStream cout;
     cout << "Passei pelo Key()" << key << "\n";
-    ASM_BITS->KEY0 = *(uint32_t *)key[0];
-    ASM_BITS->KEY1 = *(uint32_t *)key[1];
-    ASM_BITS->KEY2 = *(uint32_t *)key[2];
-    ASM_BITS->KEY3 = *(uint32_t *)key[3];
+    //ASM_BITS->KEY0 = *(uint32_t *)key[0];
+    //ASM_BITS->KEY1 = *(uint32_t *)key[1];
+    //ASM_BITS->KEY2 = *(uint32_t *)key[2];
+    //ASM_BITS->KEY3 = *(uint32_t *)key[3];
+//TODO fazer a quebra dos key.
+    ASM_BITS->KEY0 = 0xccddeeff;
+    ASM_BITS->KEY1 = 0x8899aabb;
+    ASM_BITS->KEY2 = 0x44556677;
+    ASM_BITS->KEY3 = 0x00112233;
 }
 
-void ASMController::setData( char* key)
+void ASMController::setData( char* data)
 {
     OStream cout;
-    cout << "Passei pelo Data()" << key << "\n";
-    ASM_BITS->CTR0 = *(uint32_t *)key[0];
-    ASM_BITS->CTR1 = *(uint32_t *)key[4];
-    ASM_BITS->CTR2 = *(uint32_t *)key[8];
-    ASM_BITS->CTR3 = *(uint32_t *)key[12];
+    ASM_BITS->CONTROL0.CLEAR = 1;
+    cout << "Passei pelo Data()" << data << "\n";
+    ASM_BITS->CTR0 = 0x33333333;
+    ASM_BITS->CTR1 = 0x22222222;
+    ASM_BITS->CTR2 = 0x11111111;
+    ASM_BITS->CTR3 = 0x00000000;
+    long long unsigned int mask = 0;
+    uint32_t temp, temp1, temp2, temp3, tempOu = 0 ;
+    ASM_BITS->DATA0, ASM_BITS->DATA1, ASM_BITS->DATA2, ASM_BITS->DATA3 = 0;
+    char temp_data[16];
 
-    ASM_BITS->DATA0 = *(uint32_t *)key[16];
-    ASM_BITS->DATA1 = *(uint32_t *)key[20];
-    ASM_BITS->DATA2 = *(uint32_t *)key[24];
-    ASM_BITS->DATA3 = *(uint32_t *)key[28];
+    for(uint32_t j = 0 ; j < 17 ; j++)
+    	{
+		temp_data[j] = '\0';
+    	}
+
+    uint32_t i = 0;
+    while(data[i] != '\0') { i++; }
+    
+    for(uint32_t j = 0 ; j < i ; j++)
+    {
+	temp_data[j] = data[j];
+	cout << "Loop: " << temp_data << " " << j << "\n";
+    }
+    i++;
+    if(i < 17){
+    	for(uint32_t j = i ; j < 17 ; j++)
+    	{
+		temp_data[j] = '\0';
+    	}
+    }
+    cout << temp_data << "\n";
+    temp = (uint32_t)temp_data[0];
+    temp1 = (uint32_t)temp_data[1] << 8;
+    temp2 = (uint32_t)temp_data[2] << 16;
+    temp3 = (uint32_t)temp_data[3] << 24;
+    tempOu = temp | temp1 | temp2 | temp3;
+    ASM_BITS->DATA0 = tempOu;
+    temp, temp1, temp2, temp3, tempOu = 0;
+    temp = (uint32_t)temp_data[5];
+    temp1 = (uint32_t)temp_data[6] << 8;
+    temp2 = (uint32_t)temp_data[7] << 16;
+    temp3 = (uint32_t)temp_data[8] << 24;
+    tempOu = temp | temp1 | temp2 | temp3;
+    ASM_BITS->DATA1 = tempOu;
+    temp, temp1, temp2, temp3, tempOu = 0;
+    temp = (uint32_t)temp_data[9];
+    temp1 = (uint32_t)temp_data[10] << 8;
+    temp2 = (uint32_t)temp_data[11] << 16;
+    temp3 = (uint32_t)temp_data[12] << 24;
+    tempOu = temp | temp1 | temp2 | temp3;
+    ASM_BITS->DATA2 = tempOu;
+    temp, temp1, temp2, temp3, tempOu = 0;
+    temp = (uint32_t)temp_data[13];
+    temp1 = (uint32_t)temp_data[14] << 8;
+    temp2 = (uint32_t)temp_data[15] << 16;
+    temp3 = (uint32_t)temp_data[16] << 24;
+    tempOu = temp | temp1 | temp2 | temp3;
+    ASM_BITS->DATA3 = tempOu;
+
+    cout << "Data[0]" << (uint32_t *)ASM_BITS->DATA0 << "\n";
+    cout << "Data[1]" << (uint32_t *)ASM_BITS->DATA1 << "\n";
+    cout << "Data[2]" << (uint32_t *)ASM_BITS->DATA2 << "\n";
+    cout << "Data[3]" << (uint32_t *)ASM_BITS->DATA3 << "\n";
 }
 
 void ASMController::setCRTMode()
@@ -69,33 +129,69 @@ void ASMController::setCRTMode()
 
 void ASMController::cipher() {
     ASM_BITS->CONTROL0.START = 1;
-    OStream cout;
-    cout << "Passei pelo cipher() DONE = " << ASM_BITS->STATUS.DONE << "\n";
     while(ASM_BITS->STATUS.DONE == 0) { continue; }
-    cout << "saindo do cipher() DONE = " << ASM_BITS->STATUS.DONE << "\n";
 }
 
 char* ASMController::getCipheredData() {
-    this->ciphered_data[0] =  ASM_BITS->CTR0_RESULT       & 0xff;
-    this->ciphered_data[1] =  ASM_BITS->CTR0_RESULT >> 8  & 0xff;
-    this->ciphered_data[2] =  ASM_BITS->CTR0_RESULT >> 16 & 0xff;
-    this->ciphered_data[3] =  ASM_BITS->CTR0_RESULT >> 24 & 0xff;
+    OStream cout;
+//TODO fazer split dos datas.
+    cout << "Result[0] " << (uint32_t *)ASM_BITS->CTR0_RESULT << "\n";
+    utoa((uint32_t )ASM_BITS->CTR0_RESULT, ciphered_data);
+    //this->ciphered_data[1] =  ASM_BITS->CTR0_RESULT;
+    //this->ciphered_data[2] =  ASM_BITS->CTR0_RESULT;
+    //this->ciphered_data[3] =  ASM_BITS->CTR0_RESULT;
+    
+    cout << "Result[1] " << (uint32_t *)ASM_BITS->CTR1_RESULT << "\n";
+    utoa((uint32_t )ASM_BITS->CTR1_RESULT, ciphered_data);
+   // temp1 = (char *) ASM_BITS->CTR1_RESULT;
+    //this->ciphered_data[5] =  ASM_BITS->CTR1_RESULT >> 8  & 0xff;
+    //this->ciphered_data[6] =  ASM_BITS->CTR1_RESULT >> 16 & 0xff;
+    //this->ciphered_data[7] =  ASM_BITS->CTR1_RESULT >> 24 & 0xff;
 
-    this->ciphered_data[4] =  ASM_BITS->CTR1_RESULT       & 0xff;
-    this->ciphered_data[5] =  ASM_BITS->CTR1_RESULT >> 8  & 0xff;
-    this->ciphered_data[6] =  ASM_BITS->CTR1_RESULT >> 16 & 0xff;
-    this->ciphered_data[7] =  ASM_BITS->CTR1_RESULT >> 24 & 0xff;
+     cout << "Result[2] " << (uint32_t *)ASM_BITS->CTR2_RESULT << "\n";
+    utoa((uint32_t )ASM_BITS->CTR2_RESULT, ciphered_data);
+    //temp2 = (char *) ASM_BITS->CTR2_RESULT;
+    //this->ciphered_data[9] =  ASM_BITS->CTR2_RESULT >> 8  & 0xff;
+    //this->ciphered_data[10] = ASM_BITS->CTR2_RESULT >> 16 & 0xff;
+    //this->ciphered_data[11] = ASM_BITS->CTR2_RESULT >> 24 & 0xff;
 
-    this->ciphered_data[8] =  ASM_BITS->CTR2_RESULT       & 0xff;
-    this->ciphered_data[9] =  ASM_BITS->CTR2_RESULT >> 8  & 0xff;
-    this->ciphered_data[10] = ASM_BITS->CTR2_RESULT >> 16 & 0xff;
-    this->ciphered_data[11] = ASM_BITS->CTR2_RESULT >> 24 & 0xff;
+     cout << "Result[3] " << (uint32_t *)ASM_BITS->CTR3_RESULT  << "\n";
 
-    this->ciphered_data[12] = ASM_BITS->CTR3_RESULT       & 0xff;
-    this->ciphered_data[13] = ASM_BITS->CTR3_RESULT >> 8  & 0xff;
-    this->ciphered_data[14] = ASM_BITS->CTR3_RESULT >> 16 & 0xff;
-    this->ciphered_data[15] = ASM_BITS->CTR3_RESULT >> 24 & 0xff;
-
+    utoa((uint32_t )ASM_BITS->CTR3_RESULT, ciphered_data);
+    //temp3 = (char *)ASM_BITS->CTR3_RESULT;
+    // this->ciphered_data[13] = ASM_BITS->CTR3_RESULT >> 8  & 0xff;
+    //this->ciphered_data[14] = ASM_BITS->CTR3_RESULT >> 16 & 0xff;
+    //this->ciphered_data[15] = ASM_BITS->CTR3_RESULT >> 24 & 0xff;
+    
+   
     return this->ciphered_data;
 }
+
+
+int ASMController::utoa(unsigned int v, char * s, unsigned int i)
+{
+    unsigned int j;
+    int _base = 16;
+    const char _digits[] = "0123456789abcdef";
+
+    if(!v) {
+	s[i++] = '0';
+	return i;
+    }
+
+    if(v > 256) {
+	if(_base == 8 || _base == 16)
+	    s[i++] = '0';
+	if(_base == 16)
+	    s[i++] = 'x';
+    }
+
+    for(j = v; j != 0; i++, j /= _base);
+    for(j = 0; v != 0; j++, v /= _base)
+	s[i - 1 - j] = _digits[v % _base];
+
+    return i;
+}
+
+
 __END_SYS
