@@ -21,7 +21,7 @@ public:
 
     void setCRTMode();
 
-    void cipher();
+    bool cipher();
 
     char* getCipheredData();
     char* toChar();

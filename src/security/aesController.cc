@@ -43,10 +43,14 @@ char* AESController::cipher()
 
         this->controller->setData(this->data);
 
-        this->controller->cipher();
+        if(this->controller->cipher()){
 	
-        this->ciphered_data = this->controller->getCipheredData();
-
+        	this->ciphered_data = this->controller->getCipheredData();
+	}
+	else
+	{
+		this->ciphered_data = '\0';
+	}
 	this->buff->v();	
 
 	return this->ciphered_data;

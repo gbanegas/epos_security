@@ -169,9 +169,10 @@ void ASMController::setCRTMode()
     ASM_BITS->CONTROL1.CTR = 1;
 }
 
-void ASMController::cipher() {
+bool ASMController::cipher() {
     ASM_BITS->CONTROL0.START = 1;
     while(ASM_BITS->STATUS.DONE == 0) { continue; }
+    return true;
 }
 
 char* ASMController::getCipheredData() {
