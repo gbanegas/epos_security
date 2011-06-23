@@ -32,7 +32,7 @@ public:
 
 private:
     //int strlen(char * str);
-    int utoa(unsigned int v, char * s, unsigned int i = 0);
+    int utoa(unsigned int v, char * s,bool hex, unsigned int i = 0);
     char* data;
     char ciphered_data[128];
     char* key;
