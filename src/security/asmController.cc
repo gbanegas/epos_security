@@ -22,19 +22,19 @@ ASMController* ASMController::getInstance()
 void ASMController::initialize()
 {
 	OStream cout;
-        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
+        cout << "Passei pelo Initialize()" << "\n";
+        cout << "Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
 	ASM_BITS->CONTROL1.ON = 1;
 	ASM_BITS->CONTROL1.SELF_TEST = 1;
 	ASM_BITS->CONTROL0.START = 1;
 
 	for(unsigned int i = 0; i < 3330; i++) { continue; }
-        cout << "Passei pelo Initialize() Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
+        cout << "Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
 
 	ASM_BITS->CONTROL1.SELF_TEST = 0;
 	ASM_BITS->CONTROL1.NORMAL_MODE = 1;
         ASM_BITS->CONTROL0.CLEAR = 1;
 	ASM_BITS->CONTROL0.CLEAR_IRQ = 1;
-        cout <<" estou saindo Initialize() " << "\n";
 }
 
 void ASMController::setKey(char* key)
