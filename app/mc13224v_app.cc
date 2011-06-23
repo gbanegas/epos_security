@@ -12,7 +12,7 @@ __USING_SYS
 
 void wait() {
     for(unsigned int i = 0; i < 0x000fffff; i++);
-    Alarm::delay(1000000);
+    Alarm::delay(2000000);
 }
 
 void turn_on_led1() {
@@ -25,15 +25,7 @@ void turn_on_led2() {
     *GPIO_BASE = 1 << 24;
 }
 
-void turn_on_led3() {
-    unsigned int *GPIO_BASE = (unsigned int*)0x80000000;
-    *GPIO_BASE = 1 << 25;
-}
 
-void turn_leds_off() {
-    unsigned int *GPIO_BASE = (unsigned int*)0x80000000;
-    *GPIO_BASE = *GPIO_BASE & ~(1 << 23) & ~(1 << 24) & ~(1 << 25);
-}
 
 
 void testCipher()
@@ -41,12 +33,12 @@ void testCipher()
    OStream cout;
    AESController controller;
    controller.setKey("0x12345678");
-   controller.setData("//////");
+   controller.setData("aaaaaaaaaaaaaa");
    char * test = controller.cipher();
    cout << "cifrado: " << test << "\n";
    //controller.setData(test);
    //test = controller.cipher();
-   //cout << test << "\n";
+   //cout <<"decifrado: " <<  test << "\n";
    delete[] test;
 }
 
@@ -56,10 +48,6 @@ int main() {
     turn_on_led1();
     wait();
     turn_on_led2();
-    wait();
-    turn_on_led3();
-    wait();
-    turn_leds_off();
     wait();
     testCipher();
   
