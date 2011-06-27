@@ -32,7 +32,7 @@ void testCipher()
 {
    OStream cout;
    AESController controller;
-   controller.setKey("0x12345678");
+   controller.setKey("aaaaaaaaaaaa");
    controller.setData("aaaaaaaaaaaaaa");
    char * test = controller.cipher();
    cout << "cifrado: " << test << "\n";

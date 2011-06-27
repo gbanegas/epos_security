@@ -2,6 +2,7 @@
 #define ASMCONTROLLER_H_
 
 #include <system/config.h>
+#include <alarm.h>
 #include "asm.h"
 __BEGIN_SYS
 class ASMController {

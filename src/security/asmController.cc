@@ -28,7 +28,8 @@ void ASMController::initialize()
 	ASM_BITS->CONTROL1.SELF_TEST = 1;
 	ASM_BITS->CONTROL0.START = 1;
 
-	for(unsigned int i = 0; i < 3330; i++) { continue; }
+	//for(unsigned int i = 0; i < 3330; i++) { continue; }
+        Alarm::delay(200000);
         cout << "Status = " << ASM_BITS->STATUS.TEST_PASS << "\n";
 
 	ASM_BITS->CONTROL1.SELF_TEST = 0;
@@ -63,7 +64,8 @@ void ASMController::setKey(char* key)
 		temp_key[j] = '\0';
     	}
     }
-    cout << temp_key << "\n";
+    cout << temp_key[0] << "\n";
+    cout << (uint32_t)temp_key[0] << "\n";
     temp = (uint32_t)temp_key[0];
     temp1 = (uint32_t)temp_key[1] << 8;
     temp2 = (uint32_t)temp_key[2] << 16;
@@ -93,10 +95,10 @@ void ASMController::setKey(char* key)
     ASM_BITS->KEY3 = tempOu;
 
 
-    cout << "KEY[0]" << (uint32_t *)ASM_BITS->KEY0 << "\n";
-    cout << "KEY[1]" << (uint32_t *)ASM_BITS->KEY1 << "\n";
-    cout << "KEY[2]" << (uint32_t *)ASM_BITS->KEY2 << "\n";
-    cout << "KEY[3]" << (uint32_t *)ASM_BITS->KEY3 << "\n";
+    //cout << "KEY[0]" << (uint32_t *)ASM_BITS->KEY0 << "\n";
+   // cout << "KEY[1]" << (uint32_t *)ASM_BITS->KEY1 << "\n";
+    //cout << "KEY[2]" << (uint32_t *)ASM_BITS->KEY2 << "\n";
+   // cout << "KEY[3]" << (uint32_t *)ASM_BITS->KEY3 << "\n";
 }
 
 void ASMController::setData( char* data)
@@ -209,7 +211,7 @@ char* ASMController::getCipheredData() {
 
 int ASMController::utoa(unsigned int v, char * s, unsigned int i)
 {
-    OStream cout;
+    //OStream cout;
     unsigned int j,temp,temp1,temp2,temp3 = 0;
     int _base = 16;
     const char _digits[] = "0123456789abcdef";
@@ -218,7 +220,7 @@ int ASMController::utoa(unsigned int v, char * s, unsigned int i)
     temp1 = (v & 0xff0000) >> 16;
     temp2 = (v  & 0xff00) >> 8;
     temp3 = (v & 0xff) ;
-    cout << "temp: " << (char)temp << " " << (char)temp1 << " " << (char)temp2  << " " << (char)temp3   << "\n" ;
+    //cout << "temp: " << (char)temp << " " << (char)temp1 << " " << (char)temp2  << " " << (char)temp3   << "\n" ;
 
     if(!v) {
 	s[i++] = '0';
