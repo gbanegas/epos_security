@@ -22,21 +22,14 @@ public:
 
     void setCRTMode();
 
-    bool cipher();
+    bool cipher(char* ciphered_data);
 
-    char* getCipheredData();
-    char* toChar();
-
-    char* toHex();
 
      void initialize();
 
 private:
     //int strlen(char * str);
     int utoa(unsigned int v, char * s, unsigned int i = 0);
-    char* data;
-    char ciphered_data[128];
-    char* key;
     static ASMController* instance;
     typedef unsigned int uint32_t;
 };

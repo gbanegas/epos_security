@@ -1,65 +1,47 @@
 #include <security/aesController.h>
 
 __BEGIN_SYS
+AESController* AESController::instance = 0;
+
 AESController::AESController()
 {
-
-	this->key = 0;
-	this->data = 0;
-	this->ciphered_data = 0;
-	this->controller = ASMController::getInstance();
+        this->controller = ASMController::getInstance();
 	this->buff = new Semaphore();
 }
 
-
-
-void AESController::setKey( char* key)
+AESController* AESController::getInstance()
 {
-	this->key = key;
+	if(instance == 0)
+	    instance = new AESController();
+
+	return instance;
 }
-
-char* AESController::getCipheredData()
-{
-
-	return this->ciphered_data;
-
-}
-
-void AESController::setData( char* data)
-{
-	this->data = data;
-}
-
-char* AESController::cipher()
+bool AESController::cipher(char* data, char * key, char* ciphered_data)
 {
 	
 	this->buff->p();
 
-        //this->controller->initialize();
-
-        this->controller->setKey(this->key);
-
         this->controller->setCRTMode();
-
-        this->controller->setData(this->data);
-
-        if(this->controller->cipher()){
+        
+	this->controller->setKey(key);
 	
-        	this->ciphered_data = this->controller->getCipheredData();
+	this->controller->setData(data);
+
+        if(this->controller->cipher(ciphered_data)){
+		return true;
 	}
 	else
 	{
-		this->ciphered_data = '\0';
+		ciphered_data = '\0';
+		return false;
 	}
 	this->buff->v();	
 
-	return this->ciphered_data;
-
 }
 
-char* AESController::decipher()
+bool AESController::decipher(char* data, char* key, char* ciphered_data)
 {
-	return this->cipher();
+	return this->cipher(data, key, ciphered_data);
 }
 
 __END_SYS

@@ -6,8 +6,6 @@ ASMController* ASMController::instance = 0;
 ASMController::ASMController()
 {
 
-	this->key = 0;
-	this->data = 0;
 	initialize();
 }
 
@@ -171,18 +169,14 @@ void ASMController::setCRTMode()
     ASM_BITS->CONTROL1.CTR = 1;
 }
 
-bool ASMController::cipher() {
+bool ASMController::cipher(char* ciphered_data) {
     ASM_BITS->CONTROL0.START = 1;
     while(ASM_BITS->STATUS.DONE == 0) { continue; }
-    return true;
-}
-
-char* ASMController::getCipheredData() {
-     char temp[20];
+    char temp[20];
      uint32_t j = 0;
      uint32_t k = 0;
 
-     for(unsigned int i = 0 ; i < 20 ; i ++){ this->ciphered_data[i] = '\0';}
+     for(unsigned int i = 0 ; i < 20 ; i ++){ ciphered_data[i] = '\0';}
 
      for(unsigned int i = 0 ; i < 20 ; i ++){ temp[i] = '\0';}
      utoa(ASM_BITS->CTR0_RESULT, temp);
@@ -201,13 +195,12 @@ char* ASMController::getCipheredData() {
      utoa(ASM_BITS->CTR3_RESULT, temp);
      k = 0;
      while(temp[k] != '\0'){ ciphered_data[j] = temp[k]; j++; k++;}
-    
-     j++;
-     this->ciphered_data[j] = '\0';
-   
-    return this->ciphered_data;
-}
 
+     j++;
+     ciphered_data[j] = '\0';
+
+    return true;
+}
 
 int ASMController::utoa(unsigned int v, char * s, unsigned int i)
 {

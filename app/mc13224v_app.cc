@@ -31,10 +31,13 @@ void turn_on_led2() {
 void testCipher()
 {
    OStream cout;
-   AESController controller;
-   controller.setKey("aaaaaaaaaaaa");
-   controller.setData("aaaaaaaaaaaaaa");
-   char * test = controller.cipher();
+   AESController *controller = AESController::getInstance();
+   char* test;
+   char data[16] = "aaaaaaa";
+   char key[16] = "aaaaaa";
+   char* ptrData = data;
+   char* ptrKey = key;
+   controller->cipher(ptrData, ptrKey, test);
    cout << "cifrado: " << test << "\n";
    //controller.setData(test);
    //test = controller.cipher();

@@ -8,26 +8,23 @@
 __BEGIN_SYS
 class AESController {
 
+
+protected:
+     AESController();
 	
 public:
-    AESController();
+    static AESController* getInstance();
     //virtual ~AESController();
 
-    void setKey(char* key);
+    bool cipher(char* data, char* key, char* ciphered_data);
 
-    void setData(char* data);
-
-    char* cipher();
-
-    char* decipher();
+    bool decipher(char* data, char* key, char* ciphered_data);
 	
     char* getCipheredData();
 
 
 private:
-    char * data;
-    char * ciphered_data;
-    char* key;
+    static AESController* instance;
     ASMController * controller;
     Semaphore * buff;
 };
