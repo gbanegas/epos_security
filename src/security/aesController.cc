@@ -28,14 +28,16 @@ bool AESController::cipher(char* data, char * key, char* ciphered_data)
 	this->controller->setData(data);
 
         if(this->controller->cipher(ciphered_data)){
+                this->buff->v();
 		return true;
 	}
 	else
 	{
 		ciphered_data = '\0';
+                this->buff->v();
 		return false;
 	}
-	this->buff->v();	
+		
 
 }
 

@@ -33,12 +33,15 @@ void testCipher()
    OStream cout;
    AESController *controller = AESController::getInstance();
    char* test;
+   char* dechipher;
    char data[16] = "aaaaaaa";
    char key[16] = "aaaaaa";
    char* ptrData = data;
    char* ptrKey = key;
    controller->cipher(ptrData, ptrKey, test);
    cout << "cifrado: " << test << "\n";
+   controller->cipher(test, ptrKey, dechipher);
+   cout << "decifrado: " << dechipher << "\n";
    //controller.setData(test);
    //test = controller.cipher();
    //cout <<"decifrado: " <<  test << "\n";
